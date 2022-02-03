@@ -21,23 +21,23 @@ jobRole.addEventListener('change', (e) => {
 //"T-Shirt Info" section
 const selectDesign = document.getElementById('design');
 const color = document.getElementById('color');
-const SelectColor = document.getElementById('color').children;
+const selectColor = document.getElementById('color').children;
 
 color.disabled = true;
 
-design.addEventListener('change', (e) => {    
+selectDesign.addEventListener('change', (e) => {    
     color.disabled = false;
 
-    for(let i = 1; i < colorOptions.length; i++){
+    for(let i = 1; i < selectColor.length; i++){
         let colorValue = e.target.value;
-        let dataTheme = colorOptions[i].getAttribute('data-theme');
+        let dataTheme = selectColor[i].getAttribute('data-theme');
         
         if(colorValue === dataTheme){
-            colorOptions[i].hidden = false;
-            colorOptions[i].setAttribute('selected', true);
+            selectColor[i].hidden = false;
+            selectColor[i].setAttribute('selected', true);
         } else {
-            colorOptions[i].hidden = true;
-            colorOptions[i].removeAttribute('selected');
+            selectColor[i].hidden = true;
+            selectColor[i].removeAttribute('selected');
         }
     }
 });
@@ -50,12 +50,12 @@ let totalCost = 0;
 activities.addEventListener('change', (e) => {
     let cost = e.target.getAttribute('data-cost');
     cost = parseInt(cost);
-    if (e.target.checked) {
+    if(e.target.checked) {
         totalCost += cost;
     } else {
         totalCost -= cost;
     }
-    activityCost.innerHTML `Total: $${totalCost}`;
+    activityCost.innerHTML = `Total: $${totalCost}`;
 });
 
 //"Payment Info" section
