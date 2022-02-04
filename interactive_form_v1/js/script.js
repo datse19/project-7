@@ -7,7 +7,7 @@ nameField.focus(); //Adding focus to the name field
 const jobRole = document.getElementById('title'); 
 const otherJob = document.getElementById('other-job-role');
 
-otherJob.hidden = true; //element wont show when page loads.
+otherJob.style.display = 'none'; //element wont show when page loads.
 
 //Added Event listener when the user selects "Other" in the "Job Role" drop down menu, the "Other job role" text field will appear. 
 jobRole.addEventListener('change', (e) => {
@@ -96,34 +96,74 @@ const formElement = document.querySelector('form');
 function validateName () {
     const nameInput = nameField.value;
     const nameTest = /^[a-z]/i.test(nameInput);
-    return nameTest;
-}
+    if(!nameTest){
+        nameField.parentElement.classList.add('not-valid');
+        nameField.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        nameField.parentElement.classList.add('valid');
+        nameField.parentElement.classList.remove('not-valid');
+        return true;
+    }
+};
 function validateEmail () {
-    const email = emailInput.value;
-    const emailTest = /^[^@]+@[^@.]+\.com+$/i.test(email);
-    return emailTest;
-}
+    const emailInput = email.value;
+    const emailTest = /^[^@]+@[^@.]+\.com+$/i.test(emailInput);
+    if(!emailTest){
+        email.parentElement.classList.add('not-valid');
+        email.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        email.parentElement.classList.add('valid');
+        email.parentElement.classList.remove('not-valid');
+        return true;
+    }
+};
 function validateCard () {
     const cardInput = cardNumber.value;
     const cardTest = /^\d{13,16}$/.test(cardInput);
-    return cardTest;
-}
+    if(!cardTest){
+        cardNumber.parentElement.classList.add('not-valid');
+        cardNumber.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        cardNumber.parentElement.classList.add('valid');
+        cardNumber.parentElement.classList.remove('not-valid');
+        return true;
+    }
+};
 function validateZip () {
     const zipInput = zipCode.value;
     const zipTest = /^\d{5}$/.test(zipInput);
-    return zipTest;
-}
+    if(!zipTest){
+        zipCode.parentElement.classList.add('not-valid');
+        zipCode.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        zipCode.parentElement.classList.add('valid');
+        zipCode.parentElement.classList.remove('not-valid');
+        return true;
+    }
+};
 function validateCvv () {
     const cvvInput = cvv.value;
     const cvvTest = /^\d{3}$/.test(cvvInput);
-    return cvvTest;
-}
+    if(!cvvTest){
+        cvv.parentElement.classList.add('not-valid');
+        cvv.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        cvv.parentElement.classList.add('valid');
+        cvv.parentElement.classList.remove('not-valid');
+        return true;
+    }
+};
 function activitiesValidator () {
-    const activitiesSelected = totalCost > 0;
-    return activitiesSelected;
-}
+    if(totalCost === 0){
+        activities.classList.add('not-valid');
+        activities.parentElement.lastElementChild.style.display = 'block';
+    } else {
+        activities.classList.replace('not-valid', 'valid');
+        return true;
+    }
+};
 
-form.addEventListener('submit', (e) => {
+formElement.addEventListener('submit', (e) => {
     if(!validateName()){
         e.preventDefault();
     }
@@ -133,7 +173,7 @@ form.addEventListener('submit', (e) => {
     if(!activitiesValidator()){
         e.preventDefault();
     }
-    if(paymentType.value === 'credit-card'){
+    if(paymentMethod.value === 'credit-card'){
         if(!validateCard()){
             e.preventDefault();
         }
@@ -157,3 +197,4 @@ for(let i = 0; i < checkbox.length; i++){
         checkbox[i].parentNode.classList.replace('focus', 'blur');
     });
 };
+
